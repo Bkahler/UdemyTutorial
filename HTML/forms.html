@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Demo</title>
+</head>
+<body>
+
+<h1>Login</h1>
+<form>
+  <label>
+    Email:
+    <input name="email" type='email' placeholder="email@example.com" required> 
+  </label>
+
+  <label>  
+    Password:
+    <input name="password" type='password' placeholder="password" required>
+  </label>
+
+  <input type="submit">  
+</form>
+
+<p>Do you preffer cats or dogs?</p>
+<form>
+  <label>
+    Dogs
+    <input name="petChoice" value="dogs"type="radio">
+  </label> 
+
+  <label>
+    Cats
+    <input name="petChoice" value="cats"type="radio">
+  </label>
+
+  <p>What is your mood?</p>
+  <select name="mood">
+    <option value="happy">:)</option>
+    <option value="meh">:|</option>
+    <option value="sad">:(</option>
+  </select>  
+
+  <textarea name="paragraph"rows="10" cols="50"></textarea>
+
+  <button>GO!</button>
+</form>
+
+</body>
+</html>
