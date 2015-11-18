@@ -1,0 +1,109 @@
+body{
+  background: #ceecf0;
+  text-align: center;
+}
+
+.navbar.navbar-default{
+  font-family: 'Maven Pro', sans-serif;
+  background-color: #FFE099;
+-webkit-box-shadow: 0px 10px 15px -8px rgba(150,150,150,1);
+-moz-box-shadow: 0px 10px 15px -8px rgba(150,150,150,1);
+box-shadow: 0px 10px 15px -8px rgba(150,150,150,1);
+}
+
+/*#FFE099*/
+
+/*rgba(119, 221, 119, 1)*/
+
+
+/*#daedf0 */
+
+.title{
+  font-family: 'Maven Pro', sans-serif;
+  font-size: 35px;
+  letter-spacing: 0px;
+}
+
+p.title-brand{
+  font-size: 45px;
+  letter-spacing: 6px;
+  font-weight: 800;
+}
+
+body {
+  background: #e3fcff;
+}
+
+#page2{
+  text-align: left;
+}
+
+#page2 p{
+  margin-left: 150px;
+}
+
+#cloud.cloud2{
+  margin: 300px 90px 30px;
+}
+
+#cloud.cloud3{
+  margin: 300px 90px 30px;
+}
+
+#cloud {
+    width: 368px;
+    height: 156px;
+    background: #f2f9fe;
+    background: linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -webkit-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -moz-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -ms-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    background: -o-linear-gradient(top, #f2f9fe 5%, #d6f0fd 100%);
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    position: relative;
+    margin: 85px auto 20px;
+}
+
+#cloud:after, #cloud:before {
+  content: '';
+  position: absolute;
+  background: #f2f9fe;
+  z-index: -1
+}
+
+#cloud:after {
+    width: 134px;
+    height: 127px;
+    top: -66px;
+    left: 50px;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+
+}
+
+#cloud:before {
+  width: 180px; height: 180px;
+  top: -90px; right: 50px;
+  
+  border-radius: 200px;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+}
+
+.shadow {
+  width: 350px;
+  position: absolute; bottom: -300px; 
+  background: #000;
+  z-index: -1;
+  
+  box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.4);
+  
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
