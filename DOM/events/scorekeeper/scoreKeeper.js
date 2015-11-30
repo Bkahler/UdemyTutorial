@@ -1,62 +1,100 @@
 var p1Button = document.getElementById('p1');
 var p2Button = document.getElementById('p2');
 var resetButton = document.getElementById('reset');
-var p1ScoreSpan = document.getElementById('p1Score');
-var p2ScoreSpan = document.getElementById('p2Score');
-var numInput = document.querySelector('input');
+var numInput = document.querySelector('#number');
+var playerNumInput = document.querySelector('#players');
 var winningScoreDisplay = document.querySelector('#winningScore');
-var p1Score = 0;
-var p2Score = 0;
+var playersDiv = document.querySelector('#playersDiv');
+var body = document.querySelector('body');
+var scoresDiv = document.querySelector('#scores');
+
+
 var gameOver = false;
 var winningScore = 5;
+var scores = {};
+
+function getEventTarget(e) {
+  e = e || window.event;
+  return e.target || e.srcElement;
+}
+
+function buttonEvent(e) {
+  var target = getEventTarget(e);
+  if(target.tagName.toLowerCase() === 'button') {
+  	var targetId = target.id
+		if(!gameOver){
+			scores[targetId]++;
+			updateScore();
+			checkGame();    
+  	};
+  };
+};
 
 function updateScore(){
-  p1ScoreSpan.textContent = p1Score;
-  p2ScoreSpan.textContent = p2Score;
+	keys = Object.keys(scores);
+
+	if (keys.length >0) {
+		for (var i =  0 ; i < keys.length; i++) {
+			var cssId = "#scorep" + (i+1);
+			var playerScore = document.querySelector(cssId)
+			if (playerScore){
+				playerScore.textContent = "Player " + (i+1) + " : " + scores[keys[i]];
+			}
+		};
+	};
+
 };
 
 function checkGame(){
-	if(p1Score === winningScore || p2Score === winningScore){
-		if (p1Score === winningScore){
-			p1ScoreSpan.classList.add("winner");
-		} 
-		else{
-			p2ScoreSpan.classList.add("winner");
-		}
-		gameOver = true;
-	};
-}
+	for(var prop in scores) {
+    if(scores.hasOwnProperty(prop)) {
+        if(scores[prop] === winningScore) {
+        	console.log(prop)
+            declareWinner(prop);
+            gameOver = true;
+        }
+    }
+	}
+};
+
+function declareWinner(item){
+	var cssId ="#score" + item 
+	var winner = document.querySelector(cssId)
+	if (winner){
+		 winner.classList.add("winner");
+	} ;
+};
 
 function updateWinningScore(){
- winningScoreDisplay.textContent = this.value;
- winningScore = Number(this.value);
+ winningScoreDisplay.textContent = numInput.value;
+ winningScore = Number(numInput.value);
  resetGame();
 };
 
 function resetGame(){
-	p1Score = 0;
-	p2Score = 0;
-	updateScore();
 	gameOver = false;
-	p1ScoreSpan.classList.remove("winner");
-	p2ScoreSpan.classList.remove("winner");
-}
+  scoresDiv.innerHTML = ""
+  playersDiv.innerHTML = ""
+};
 
-p1Button.addEventListener("click",function(){
-	if(!gameOver){
-		p1Score++;
-		updateScore();
-		checkGame();
+function addPlayers(){
+	var numPlayers = Number(playerNumInput.value);
+	scores = {}
+	for ( var i = 1; i < (numPlayers+1); i++ ) {
+		cssId = "p" + i 
+		scores[cssId] = 0;
+		addPlayerButton(i, cssId);
+		addPlayerScores(i, cssId);
 	};
-});
+};
 
-p2Button.addEventListener("click",function(){
-	if(!gameOver){
-		p2Score++;
-		updateScore();
-		checkGame();
-	};
-});
+function addPlayerButton(i, cssId){
+	playersDiv.innerHTML = playersDiv.innerHTML + '<button id=' + cssId + '>Player ' + i + '</button>';
+};
+
+function addPlayerScores(i, cssId){
+	scoresDiv.innerHTML = scoresDiv.innerHTML + '<p id=scorep' + i + '> Player ' + i + ' : ' + scores[cssId] + '</p>'
+};
 
 resetButton.addEventListener("click", function(){
 	resetGame();
@@ -66,5 +104,11 @@ numInput.addEventListener("change", function(){
 	updateWinningScore();
 });
 
+playerNumInput.addEventListener("change", function(){
+	resetGame();
+	addPlayers();
+});
 
-
+body.addEventListener('click', function(event){
+	buttonEvent(event)
+})
