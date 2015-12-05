@@ -89,7 +89,7 @@ function addPlayers(){
 };
 
 function addPlayerButton(i, cssId){
-	playersDiv.innerHTML = playersDiv.innerHTML + '<button id=' + cssId + '>Player ' + i + '</button>';
+	playersDiv.innerHTML = playersDiv.innerHTML + '<button class="btn btn-primary" id=' + cssId + '>Player ' + i + '</button>';
 };
 
 function addPlayerScores(i, cssId){

@@ -1,3 +1,12 @@
+body{
+  
+}
+
+
 .winner{
 	color:green;
 };
+
+#ctrlPannel{
+	margin: 25px 0px;
+}
