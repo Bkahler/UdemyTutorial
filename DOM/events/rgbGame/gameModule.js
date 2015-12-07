@@ -19,11 +19,11 @@ game.init = function(){
 };
 
 game.setUpBoard = function(){
-	game.changeDisplayColorMessage()
 	game.resetButton.textContent = "New Colors";
 	game.colors = game.generateRandomColors(game.numOfSquares);
 	game.pickedColor = game.pickColor();
 	game.title.style.background = "steelblue";
+	game.changeDisplayColorMessage()
 
 	game.messageDisplay.textContent = "";
   for (var i = 0; i < game.squares.length; i++) {
