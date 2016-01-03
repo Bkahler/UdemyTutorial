@@ -1,0 +1,11 @@
+<% include partials/header %>
+
+<h1>You love: <%= thing%></h1>
+
+<% if(thing.toLowerCase() ==="sarah"){ %>
+    <h2> Yeah <%=thing%> is the best.</h2>
+<% } else { %>
+    <h2> Bad Choice, Sarah is the best</h2>
+<% } %>
+
+<% include partials/footer %>
