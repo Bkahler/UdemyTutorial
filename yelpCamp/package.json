@@ -1,0 +1,16 @@
+{
+  "name": "yelp_camp",
+  "version": "0.0.1",
+  "description": "App for reviewing camping sites",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bryan Kahler",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3"
+  }
+}

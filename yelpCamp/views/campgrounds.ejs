@@ -1,0 +1,11 @@
+<h1>Campgrounds Page</h1>
+<p>View a selection of Campgrounds.</p>
+
+<% for(var i =0; i < campgrounds.length; i++){ %>
+<div>
+ <h4> <%= campgrounds[i].name %> </h2>
+ <img src= "<%= campgrounds[i].image %>" style="width:128px;height:128px;" > 
+</div>
+
+    
+<% }; %> 
