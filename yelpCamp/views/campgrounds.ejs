@@ -1,11 +1,30 @@
-<h1>Campgrounds Page</h1>
-<p>View a selection of Campgrounds.</p>
+<% include partials/header %>
 
-<% for(var i =0; i < campgrounds.length; i++){ %>
-<div>
- <h4> <%= campgrounds[i].name %> </h2>
- <img src= "<%= campgrounds[i].image %>" style="width:128px;height:128px;" > 
-</div>
+<div class = "container"> <!--Start of main container-->
+  <header class="jumbotron">
+    <div class="container">
+      <h1>Welcome To YelpCamp</h1>
+      <p>View out hand-picked campgrounds from all over the world!</p>
+      <p>
+        <a class="btn btn-primary btn-large" href="/campgrounds/new"> Add a new Campground</a>
+      </p>
+    </div>
+  </header>
+  
+  <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+    <% for(var i =0; i < campgrounds.length; i++){ %>
+      <div class="col-md-3 col-sm-6">
+        <div class="thumbnail">
+          <img src= "<%= campgrounds[i].image %>"> 
+          <div class="caption">
+            <h4> <%= campgrounds[i].name %> </h4>
+          </div>
+        </div>
+      </div>
+    <% }; %> 
+  </div>
+</div> <!--End of main container-->
 
-    
-<% }; %> 
+
+
+<% include partials/footer %>
