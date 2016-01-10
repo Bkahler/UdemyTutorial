@@ -1,12 +1,15 @@
 <% include partials/header %>
-<h1>Blog App Index Page</h1>
 
-<% for(var i = 0; i< blogs.length; i++){ %>
-  <h2> <%= blogs[i].title %> </h2>
-  <img src="<%= blogs[i].image %>" >
-  <p><%= blogs[i].created %></p>
-  <p><%= blogs[i].body %></p>
-<% }; %>
+<div class="ui main container">
+  <h1>Blog App Index Page</h1>
+  
+  <% for(var i = 0; i< blogs.length; i++){ %>
+    <h2> <%= blogs[i].title %> </h2>
+    <img src="<%= blogs[i].image %>" >
+    <p><%= blogs[i].created %></p>
+    <p><%= blogs[i].body %></p>
+  <% }; %>
+</div>
 
 
 
