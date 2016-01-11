@@ -11,7 +11,7 @@
         <p><%=blog.created.toDateString();%></p>
       </div>      
       <div class="description" >
-        <p><%=blog.body%></p> 
+        <p><%-blog.body%></p> 
       </div>
       <a class="ui orange basic button" href="/blogs/<%=blog.id %>/edit">edit</a>
       <form action="/blogs/<%=blog._id%>?_method=DELETE" class="inlineForm" method="POST">
