@@ -69,7 +69,7 @@ app.get("/campgrounds/:id", function(req, res) {
          console.log("found Campground: " + campground.name);
          res.render("show", {campground: campground})
        }
-   }) 
+   }); 
 });
 
 // Tells Express to Listen on a specified PORT and IP. Call back prints message to console.
