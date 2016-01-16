@@ -6,7 +6,7 @@ var mongoose = require("mongoose");
 var seedDB = require("./seeds");
 
 mongoose.connect("mongodb://localhost/yelp_camp");
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 
