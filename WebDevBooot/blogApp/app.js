@@ -13,18 +13,10 @@ app.use(expressSanitizer());
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 
-//Mongoose Config
-var blogSchema = new mongoose.Schema({
-  title: String,
-  image: String,
-  body: String,
-  created:{type: Date, default: Date.now}
-});
-
-var Blog = mongoose.model("Blog", blogSchema);
+//models
+var Blog = require("./models/blog.js")
 
 //Routes
-
 app.get("/", function(req, res) {
   res.redirect("/blogs")    
 });
