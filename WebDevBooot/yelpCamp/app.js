@@ -12,6 +12,7 @@ app.set("view engine", "ejs");
 
 //models
 var Campground = require("./models/campground")
+var Comment = require("./models/comment")
 
 //seed the db
 seedDB();
@@ -28,12 +29,10 @@ app.get("/campgrounds", function(req, res){
          console.log(err);  
        }
        else{
-         res.render("index", {campgrounds:campgrounds} ) 
+         res.render("campgrounds/index", {campgrounds:campgrounds} ) 
        };
     });
 });
-
-
 
 //add a new campground
 app.post("/campgrounds", function(req, res){
@@ -54,7 +53,7 @@ app.post("/campgrounds", function(req, res){
 
 // takes you to new campground form
 app.get("/campgrounds/new", function(req, res){
-    res.render("new") 
+    res.render("campgrounds/new") 
 });
 
 //shows one campground
@@ -65,9 +64,44 @@ app.get("/campgrounds/:id", function(req, res) {
        }
        else{
          console.log("found Campground: " + campground.name);
-         res.render("show", {campground: campground})
+         res.render("campgrounds/show", {campground: campground})
        }
    }); 
+});
+
+app.get("/campgrounds/:id/comments/new", function(req, res) {
+    Campground.findById(req.params.id, function(err, campground){
+       if(err){
+           console.log(err);
+       }
+       else{
+        console.log("Found Campground");
+        res.render("comments/new",{campground:campground}) 
+       };
+    });
+
+});
+
+app.post("/campgrounds/:id/comments", function(req, res) {
+    Campground.findById(req.params.id, function(err, campground){
+       if(err){
+           console.log(err);
+           res.redirect("/campgrounds");
+       }
+       else{
+        console.log("Found Campground");
+        Comment.create(req.body.comment, function(err, comment){
+            if(err){
+                console.log(err);
+            }
+            else{
+                campground.comments.push(comment);
+                campground.save();
+                res.redirect("/campgrounds/" + campground._id);
+            };
+        });
+       };
+    });
 });
 
 // Tells Express to Listen on a specified PORT and IP. Call back prints message to console.
