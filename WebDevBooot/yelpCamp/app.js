@@ -31,6 +31,20 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser()) ;
 passport.deserializeUser(User.deserializeUser());
 
+//// Middleware code ////
+var authMiddleware = passport.authenticate('local',{successRedirect:'/campgrounds', failureRedirect:'/login'})
+var isLoggedInMiddleware = function (req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    };
+    console.log('User is not logged in...')
+   res.redirect('/login');
+};
+
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+});
 
 // seed the db //
 seedDB();
@@ -56,7 +70,7 @@ app.get("/campgrounds", function(req, res){
 });
 
 //// CREATE Campground////
-app.post("/campgrounds", function(req, res){
+app.post("/campgrounds", isLoggedInMiddleware ,function(req, res){
   var name = req.body.name;
   var image = req.body.image;
   var description = req.body.description;
@@ -73,7 +87,7 @@ app.post("/campgrounds", function(req, res){
 });
 
 //// NEW Campground /////
-app.get("/campgrounds/new", function(req, res){
+app.get("/campgrounds/new", isLoggedInMiddleware ,function(req, res){
     res.render("campgrounds/new") 
 });
 
@@ -91,7 +105,7 @@ app.get("/campgrounds/:id", function(req, res) {
 });
 
 //// NEW Comment ////
-app.get("/campgrounds/:id/comments/new", function(req, res) {
+app.get("/campgrounds/:id/comments/new", isLoggedInMiddleware,function(req, res) {
     Campground.findById(req.params.id, function(err, campground){
        if(err){
            console.log(err);
@@ -105,7 +119,7 @@ app.get("/campgrounds/:id/comments/new", function(req, res) {
 });
 
 //// CREATE Comment ////
-app.post("/campgrounds/:id/comments", function(req, res) {
+app.post("/campgrounds/:id/comments", isLoggedInMiddleware ,function(req, res) {
     Campground.findById(req.params.id, function(err, campground){
        if(err){
            console.log(err);
@@ -152,6 +166,19 @@ app.post('/register', function(req, res) {
         };
     })
 });
+
+
+app.get('/login', function(req, res) {
+    res.render('auth/login');
+})
+
+app.post('/login', authMiddleware, function(req, res) { });
+
+app.get('/logout', function(req, res) {
+    req.logout();
+    console.log('User has been logged out...')
+    res.redirect('/campgrounds');
+})
 
 // Tells Express to Listen on a specified PORT and IP. Call back prints message to console.
 app.listen(process.env.PORT, process.env.IP, function(){
