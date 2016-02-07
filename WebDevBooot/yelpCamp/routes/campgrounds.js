@@ -1,17 +1,10 @@
 var express = require('express'),
     router  = express.Router();
 
-var Campground = require('../models/campground');    
-var isLoggedInMiddleware = function (req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    };
-    console.log('User is not logged in...')
-   res.redirect('/login');
-};
+var Campground = require('../models/campground');  
+var isLoggedInMiddleware = require("../middleware/isLoggedIn")
 
-module.exports = router;
-
+//// Index Campgrounds ////
 router.get("/", function(req, res){
     Campground.find({}, function(err,campgrounds){
        if(err){
@@ -23,6 +16,7 @@ router.get("/", function(req, res){
     });
 });
 
+//// Create Campground ////
 router.post("/", isLoggedInMiddleware ,function(req, res){
   var name = req.body.name;
   var image = req.body.image;
@@ -39,10 +33,12 @@ router.post("/", isLoggedInMiddleware ,function(req, res){
   });
 });
 
+//// New Campground ////
 router.get("/new", isLoggedInMiddleware ,function(req, res){
     res.render("campgrounds/new") 
 });
 
+//// SHOW Campground ////
 router.get("/:id", function(req, res) {
    Campground.findById(req.params.id).populate("comments").exec(function(err, campground) {
        if(err){
@@ -55,5 +51,5 @@ router.get("/:id", function(req, res) {
    }); 
 });
 
-
+module.exports = router;
 

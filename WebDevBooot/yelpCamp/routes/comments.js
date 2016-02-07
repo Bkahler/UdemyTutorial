@@ -4,16 +4,9 @@ var express = require('express'),
 var Campground = require('../models/campground'),
     Comment    = require('../models/comment');
 
+var isLoggedInMiddleware = require("../middleware/isLoggedIn")
 
-var isLoggedInMiddleware = function (req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    };
-    console.log('User is not logged in...')
-   res.redirect('/login');
-};
 
-module.exports = router;
 //// NEW Comment ////
 router.get("/new", isLoggedInMiddleware,function(req, res) {
     Campground.findById(req.params.id, function(err, campground){
@@ -51,3 +44,4 @@ router.post("/", isLoggedInMiddleware ,function(req, res) {
     });
 });
 
+module.exports = router;
