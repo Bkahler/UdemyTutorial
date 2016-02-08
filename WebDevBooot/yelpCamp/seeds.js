@@ -28,33 +28,33 @@ function seedDB(){
     }
     else{
       console.log("All Campgrounds removed from DB");
-      for(var i = 0 ; i < data.length; i++){
-        Campground.create(data[i], function(err,campground){
-          if(err){
-            console.log("Failed to add Campground to DB");
-            console.log(err);
-          }
-          else{
-            console.log("Succesfully Added Campground to DB");
-            Comment.create(
-              {
-                text:"Camped here a few times.",
-                author:"Bryan"
-              }, 
-              function(err, comment){
-                if(err){
-                  console.log(err);
-                }
-                else{
-                  console.log("Succesfully Added Comment to DB");
-                  campground.comments.push(comment);
-                  campground.save();
-                  console.log("added comment to campground");
-                }
-              });
-          };
-        });
-      };
+      // for(var i = 0 ; i < data.length; i++){
+      //   Campground.create(data[i], function(err,campground){
+      //     if(err){
+      //       console.log("Failed to add Campground to DB");
+      //       console.log(err);
+      //     }
+      //     else{
+      //       console.log("Succesfully Added Campground to DB");
+      //       Comment.create(
+      //         {
+      //           text:"Camped here a few times.",
+      //           author:"Bryan"
+      //         }, 
+      //         function(err, comment){
+      //           if(err){
+      //             console.log(err);
+      //           }
+      //           else{
+      //             console.log("Succesfully Added Comment to DB");
+      //             campground.comments.push(comment);
+      //             campground.save();
+      //             console.log("added comment to campground");
+      //           }
+      //         });
+      //     };
+      //   });
+      // };
     }
   });
 }

@@ -46,8 +46,14 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 app.use(indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 
+
+
+
 // seed the db //
-seedDB();
+// seedDB();
+
+
+
 
 // Tells Express to Listen on a specified PORT and IP. Call back prints message to console.
 app.listen(process.env.PORT, process.env.IP, function(){

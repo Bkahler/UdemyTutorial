@@ -21,7 +21,16 @@ router.post("/", isLoggedInMiddleware ,function(req, res){
   var name = req.body.name;
   var image = req.body.image;
   var description = req.body.description;
-  var newCampground = {name: name, image:image, description:description};
+  var newCampground = {
+      name: name, 
+      image:image, 
+      description:description,
+      author : {
+          id: req.user._id,
+          username: req.user.username
+      }
+  };
+  
   Campground.create(newCampground, function(err, campground) {
     if(err){
       console.log(err);
