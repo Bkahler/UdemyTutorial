@@ -1,11 +1,8 @@
-var express = require('express'),
-    router  = express.Router({mergeParams:true});
-
-var Campground = require('../models/campground'),
-    Comment    = require('../models/comment');
-
-var isLoggedInMiddleware = require("../middleware/isLoggedIn")
-
+var express              = require('express'),
+    router               = express.Router({mergeParams:true}),
+    Campground           = require('../models/campground'),
+    Comment              = require('../models/comment'),
+    isLoggedInMiddleware = require("../middleware/isLoggedIn");
 
 //// NEW Comment ////
 router.get("/new", isLoggedInMiddleware,function(req, res) {
@@ -15,8 +12,8 @@ router.get("/new", isLoggedInMiddleware,function(req, res) {
        }
        else{
         console.log("Found Campground");
-        res.render("comments/new",{campground:campground}) 
-       };
+        res.render("comments/new",{campground:campground}); 
+       }
     });
 
 });
@@ -33,19 +30,20 @@ router.post("/", isLoggedInMiddleware ,function(req, res) {
         
         Comment.create(req.body.comment, function(err, comment){
             if(err){
+                console.log("error while attempting to add comment");
                 console.log(err);
             }
             else{
                 comment.author.id = req.user._id;
-                comment.author.username = req.user.username
+                comment.author.username = req.user.username;
                 comment.save();
                 campground.comments.push(comment);
                 campground.save();
-                console.log("Succesfully added comment:" + comment.author.username)
+                console.log("Succesfully added comment:" + comment.author.username);
                 res.redirect("/campgrounds/" + campground._id);
-            };
+            }
         });
-       };
+       }
     });
 });
 
