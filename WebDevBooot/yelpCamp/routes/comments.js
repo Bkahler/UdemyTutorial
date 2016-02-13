@@ -49,7 +49,7 @@ router.post("/", isLoggedInMiddleware ,function(req, res) {
 
 //// EDIT Comments ////
 router.get("/:comment_id/edit", function(req, res){
-    var campgroundId = req.params.id
+    var campgroundId = req.params.id;
     Comment.findById(req.params.comment_id, function(err,foundComment){
         if(err){
             console.log("error finding comment to edit...");
@@ -77,7 +77,7 @@ router.put("/:comment_id", function(req, res){
         console.log("comment successfully updated");  
         res.redirect("/campgrounds/" + campgroundId );   
       }
-    })    
+    });    
 });
 
 //// DELETE Comments ////
