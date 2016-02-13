@@ -89,5 +89,21 @@ router.put("/:id", function(req, res){
     });    
 });
 
+//// DESTROY Campground ////
+router.delete("/:id", function(req, res){
+    var id= req.params.id;
+    Campground.findByIdAndRemove(id,function(err){
+        if(err){
+          console.log("failed to delete campground...");
+          console.log(err);
+          res.redirect("/campgrounds");
+        }
+        else{
+          console.log("campground successfully deleted");
+          res.redirect("/campgrounds"); 
+        }
+    });
+});
+
 module.exports = router;
 
