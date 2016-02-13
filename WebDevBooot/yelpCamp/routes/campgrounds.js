@@ -1,7 +1,8 @@
-var express              = require('express'),
-    router               = express.Router(),
-    Campground           = require('../models/campground'),
-    isLoggedInMiddleware = require("../middleware/isLoggedIn");
+var express                 = require('express'),
+    router                  = express.Router(),
+    Campground              = require('../models/campground'),
+    isLoggedInMiddleware    = require("../middleware/isLoggedIn"),
+    campgroundAuthorization = require("../middleware/campgroundAuthorization");
 
 //// Index Campgrounds ////
 router.get("/", function(req, res){
@@ -16,7 +17,7 @@ router.get("/", function(req, res){
 });
 
 //// Create Campground ////
-router.post("/", isLoggedInMiddleware ,function(req, res){
+router.post("/", isLoggedInMiddleware, function(req, res){
   var name = req.body.name;
   var image = req.body.image;
   var description = req.body.description;
@@ -42,7 +43,7 @@ router.post("/", isLoggedInMiddleware ,function(req, res){
 });
 
 //// New Campground ////
-router.get("/new", isLoggedInMiddleware ,function(req, res){
+router.get("/new", isLoggedInMiddleware, function(req, res){
     res.render("campgrounds/new"); 
 });
 
@@ -60,10 +61,11 @@ router.get("/:id", function(req, res) {
 });
 
 //// EDIT Campground ////
-router.get("/:id/edit", function(req, res) {
+router.get("/:id/edit", campgroundAuthorization, function(req, res) {
     Campground.findById(req.params.id, function(err,foundCampground){
         if(err){
-          res.redirect("/campgrounds");
+           console.log("error finding campground to edit...");
+           console.log(err);
         }
         else{
           res.render("campgrounds/edit",{campground:foundCampground});  
@@ -72,7 +74,7 @@ router.get("/:id/edit", function(req, res) {
 });
 
 //// UPDATE Campground ////
-router.put("/:id", function(req, res){
+router.put("/:id", campgroundAuthorization, function(req, res){
     var id         = req.params.id,
         campground = req.body.campground;
         
@@ -90,7 +92,7 @@ router.put("/:id", function(req, res){
 });
 
 //// DESTROY Campground ////
-router.delete("/:id", function(req, res){
+router.delete("/:id", campgroundAuthorization, function(req, res){
     var id= req.params.id;
     Campground.findByIdAndRemove(id,function(err){
         if(err){
@@ -104,6 +106,10 @@ router.delete("/:id", function(req, res){
         }
     });
 });
+
+
+
+
 
 module.exports = router;
 
