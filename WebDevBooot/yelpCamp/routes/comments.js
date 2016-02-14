@@ -2,7 +2,9 @@ var express              = require('express'),
     router               = express.Router({mergeParams:true}),
     Campground           = require('../models/campground'),
     Comment              = require('../models/comment'),
-    isLoggedInMiddleware = require("../middleware/isLoggedIn");
+    isLoggedInMiddleware = require("../middleware/isLoggedIn"),
+    commentAuthorization = require("../middleware/commentAuthorization");
+
 
 //// NEW Comment ////
 router.get("/new", isLoggedInMiddleware,function(req, res) {
@@ -48,7 +50,7 @@ router.post("/", isLoggedInMiddleware ,function(req, res) {
 });
 
 //// EDIT Comments ////
-router.get("/:comment_id/edit", function(req, res){
+router.get("/:comment_id/edit", commentAuthorization, function(req, res){
     var campgroundId = req.params.id;
     Comment.findById(req.params.comment_id, function(err,foundComment){
         if(err){
@@ -63,7 +65,7 @@ router.get("/:comment_id/edit", function(req, res){
 });
 
 //// UPDATE Comments ////
-router.put("/:comment_id", function(req, res){
+router.put("/:comment_id", commentAuthorization, function(req, res){
     var commentId    = req.params.comment_id,
         comment      = req.body.comment,
         campgroundId = req.params.id;
@@ -81,7 +83,7 @@ router.put("/:comment_id", function(req, res){
 });
 
 //// DELETE Comments ////
-router.delete("/:comment_id", function(req,res){
+router.delete("/:comment_id", commentAuthorization, function(req,res){
     var commentId    = req.params.comment_id,
         campgroundId = req.params.id;
         
