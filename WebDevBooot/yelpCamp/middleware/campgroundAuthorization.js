@@ -5,7 +5,8 @@ var campgroundAuthorization = function(req, res, next){
         Campground.findById(req.params.id, function(err,foundCampground){
             if(err){
               console.log("error finding campground...");    
-              console.log(err);    
+              console.log(err);
+              req.flash("error", err.message);
               res.redirect("back");
             }
             else{
@@ -13,7 +14,8 @@ var campgroundAuthorization = function(req, res, next){
                 next(); 
               }
               else{
-                console.log("Unauthorized action on campground.");  
+                console.log("Unauthorized action on campground.");
+                req.flash("error", "You are not authorized to perform that action.");
                 res.redirect("back");
               }
             }
@@ -21,6 +23,7 @@ var campgroundAuthorization = function(req, res, next){
     }
     else{
         console.log("Unauthorized action on campground.");
+        req.flash("error", "You are not authorized to perform that action.");
         res.redirect("back");
     }
 };

@@ -5,7 +5,8 @@ var commentAuthorization = function(req, res, next){
         Comment.findById(req.params.comment_id, function(err, foundComment){
             if(err){
               console.log("error finding comment...");    
-              console.log(err);    
+              console.log(err);
+              req.flash("error", err.message);
               res.redirect("back");
             }
             else{
@@ -13,7 +14,8 @@ var commentAuthorization = function(req, res, next){
                 next(); 
               }
               else{
-                console.log("Unauthorized action on comment.");  
+                console.log("Unauthorized action on comment.");
+                req.flash("error", "You are not authorized to perform that action.");
                 res.redirect("back");
               }
             }
@@ -21,6 +23,7 @@ var commentAuthorization = function(req, res, next){
     }
     else{
         console.log("Unauthorized action on comment.");
+        req.flash("error", "You are not authorized to perform that action.");
         res.redirect("back");
     }
 };

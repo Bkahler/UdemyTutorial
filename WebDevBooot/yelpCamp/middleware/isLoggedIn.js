@@ -3,7 +3,8 @@ var isLoggedIn = function (req, res, next){
         return next();
     };
     console.log('Unauthorized. User is not logged in...')
-   res.redirect('/login');
+    req.flash("error", "You must log-in to perform that action.");
+    res.redirect('/login');
 };
 
 

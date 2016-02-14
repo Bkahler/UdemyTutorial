@@ -21,11 +21,13 @@ router.post('/register', function(req, res) {
         if(err){
             console.log('Failed to register user...');
             console.log(err);
+            req.flash("error", err.message);
             return res.render('auth/register');
         }
         else{
             passport.authenticate('local')(req, res, function(){
                 console.log('user registered successfully...');
+                req.flash("success", "Welcome to YelpCamp " + user.username);
                 res.redirect('/campgrounds');
             });
         }
@@ -36,11 +38,14 @@ router.get('/login', function(req, res) {
     res.render('auth/login');
 });
 
-router.post('/login', authMiddleware, function(req, res) { });
+router.post('/login', authMiddleware, function(req, res) { 
+    
+});
 
 router.get('/logout', function(req, res) {
     req.logout();
     console.log('User has been logged out...');
+    req.flash('success','You have been logged out.')
     res.redirect('/campgrounds');
 });
 

@@ -94,6 +94,7 @@ router.delete("/:comment_id", commentAuthorization, function(req,res){
         }
         else{
             console.log("comment successfully deleted");
+            req.flash('success', 'Comment was deleted')
             res.redirect("/campgrounds/" + campgroundId);
         }
     });
