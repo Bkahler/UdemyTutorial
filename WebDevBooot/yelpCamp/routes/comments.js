@@ -81,4 +81,21 @@ router.put("/:comment_id", function(req, res){
 });
 
 //// DELETE Comments ////
+router.delete("/:comment_id", function(req,res){
+    var commentId    = req.params.comment_id,
+        campgroundId = req.params.id;
+        
+    Comment.findByIdAndRemove(commentId, function(err, comment){
+        if(err){
+            console.log("failed to delete comment...");
+            console.log(err);
+        }
+        else{
+            console.log("comment successfully deleted");
+            res.redirect("/campgrounds/" + campgroundId);
+        }
+    });
+
+});
+
 module.exports = router;

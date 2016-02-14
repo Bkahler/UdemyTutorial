@@ -41,6 +41,9 @@
                             <span class="pull-right"> 7 days ago</span>
                             <p><%= campground.comments[i].text %></p>
                             <a class="btn btn-xs btn-warning" href="/campgrounds/<%=campground._id%>/comments/<%=campground.comments[i]._id%>/edit">edit</a>
+                            <form id="delete-form" action="/campgrounds/<%=campground._id%>/comments/<%=campground.comments[i]._id%>?_method=DELETE" method="POST">
+                                <button class="btn btn-xs btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 <% } %>  
