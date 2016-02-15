@@ -1,0 +1,11 @@
+{
+  "name": "simpleserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Bryan Kahler",
+  "license": "ISC"
+}
