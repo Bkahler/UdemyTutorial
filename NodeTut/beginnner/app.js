@@ -1,7 +1,11 @@
+pry = require('pryjs')
+
+
 // function statement
 function greet(){
   console.log("Hi Bryan");  
-};
+}
+
 greet();
 
 //functions are frist-class... functions can be passed around... event as arguments.
